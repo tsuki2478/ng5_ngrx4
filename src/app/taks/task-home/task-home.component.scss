@@ -1,0 +1,26 @@
+.fab-button {
+    position: fixed;
+    right: 32px;
+    bottom: 96px;
+    z-index: 999;
+}
+
+.task-lists {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: hidden; //横向滚动
+}
+
+.list-container {
+    flex: 0 0 360px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+// 拖拽;
+.drag-enter {
+    background-color: dimgray;
+}

@@ -1,0 +1,31 @@
+<!-- <h2 md-dialog-title> 邀请组员:</h2>
+    <div md-dialog-content>
+        <md-input-container class='full-width'>
+            <input mdInput type="text" placeholder="组员姓名" [mdAutocomplete]='autoMembers'>
+        </md-input-container>
+     </div>
+
+    <div md-dialog-actions>
+        <button type="submit" md-raised-button color="primary" > 保存</button>
+        <button type="button" md-dialog-close md-button>关闭</button>
+    </div> -->
+
+<!-- 对应  [mdAutocomplete]='autoMembers'  [value]是返回，可以直接item.id,item.name; [displayWith]是在TS里更详细的返回，可以返回自定义 -->
+<!-- <md-autocomplete #autoMembers='mdAutocomplete' [displayWith]='displayUser'>
+        <md-option *ngFor="let item of items" [value]="item">
+            {{item.name}}
+        </md-option>
+    </md-autocomplete> -->
+
+
+
+<form class="full-width" #f="ngForm" (ngSubmit)="onSubmit($event, f)">
+    <app-chips-list [label]="'邀请成员'" name="members" [(ngModel)]="members">
+    </app-chips-list>
+    <div md-dialog-actions>
+        <button md-raised-button color="primary" type="submit" [disabled]="!f.valid">
+            保存
+          </button>
+        <button md-dialog-close md-raised-button type="button">关闭</button>
+    </div>
+</form>

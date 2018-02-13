@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+@include mat-core();
+// material白天主题
+$my-app-primary:mat-palette($mat-indigo); //主颜色    //次要 3个，第一个默认，第二个亮主题颜色，第三个深主题颜色
+$my-app-accent:mat-palette($mat-pink, A200, A100, A400); //次要 3个，第一个默认，第二个亮主题颜色，第三个深主题颜色
+$my-app-warn:mat-palette($mat-red); //警告颜色。。
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn); // 白天主题
+@include angular-material-theme($my-app-theme);
+// material黑夜主题
+$my-dark-primary:mat-palette($mat-blue-grey); //主颜色    //次要 3个，第一个默认，第二个亮主题颜色，第三个深主题颜色
+$my-dark-accent:mat-palette($mat-amber, A200, A100, A400); //次要 3个，第一个默认，第二个亮主题颜色，第三个深主题颜色
+$my-dark-warn:mat-palette($mat-deep-orange); //警告颜色。。
+$my-dark-theme: mat-dark-theme($my-dark-primary, $my-dark-accent, $my-dark-warn); // 黑夜主题
+.myapp-dark-theme {
+    @include angular-material-theme($my-dark-theme);
+}

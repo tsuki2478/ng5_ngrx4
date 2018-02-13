@@ -1,0 +1,29 @@
+GET http://localhost:3000/projects?members_like=2
+
+ 
+###
+
+GET http://localhost:3000/taskLists
+
+###
+
+POST http://localhost:3000/taskLists
+Content-Type:  application/json
+{
+    "name":"lists1",
+    "order":"1",
+    "projectId":"1",
+}
+
+
+###
+
+PUT http://localhost:3000/taskLists/1
+Content-Type:  application/jso
+{
+    "name":"lists2",
+    "order":"2",
+    "projectId":"1",
+}
+
+

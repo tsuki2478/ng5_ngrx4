@@ -1,0 +1,30 @@
+<md-nav-list>
+    <h3 md-subheader>动漫</h3>
+    <md-list-item [routerLink]="['/project']" (click)='onNavClick()'>
+        <md-icon md-list-icon [svgIcon]='today'></md-icon>
+        <span md-line>动漫首页</span>
+        <span md-line md-subheader>查看所有动漫</span>
+    </md-list-item>
+
+    <h3 md-line md-subheader>更新</h3>
+    <md-list-item [routerLink]="['/tasklists']" (click)='onNavClick()'>
+        <md-icon md-list-icon svgIcon='month'></md-icon>
+        <span md-line>1月</span>
+        <span md-line md-subheader>春季萌新番</span>
+    </md-list-item>
+    <md-list-item [routerLink]="['/login']" (click)='onNavClick()'>
+        <md-icon md-list-icon svgIcon='month'></md-icon>
+        <span md-line>4月</span>
+        <span md-line md-subheader>夏季过渡番</span>
+    </md-list-item>
+    <md-list-item>
+        <md-icon md-list-icon svgIcon='month'></md-icon>
+        <span md-line>7月</span>
+        <span md-line md-subheader>7月腐女番</span>
+    </md-list-item>
+    <md-list-item>
+        <md-icon md-list-icon svgIcon='month'></md-icon>
+        <span md-line>10月</span>
+        <span md-line md-subheader>10月最强番</span>
+    </md-list-item>
+</md-nav-list>

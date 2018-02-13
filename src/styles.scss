@@ -1,0 +1,45 @@
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber';
+@import 'theme.scss';
+html,
+body,
+app-root,
+md-sidenav-container,
+.site {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.site {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.fill-remaining-space {
+    //使用flexbox填充剩余空间.
+    flex: 1 1 auto;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    // align-items: center;
+    justify-content: center;
+    /* 是site的子类，不会和display：flex冲突 */
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background: black;
+}
+
+app-login {
+    width: 100%;
+}

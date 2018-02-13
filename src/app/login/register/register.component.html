@@ -1,0 +1,69 @@
+<form [formGroup]='form' (ngSubmit)="onSubmit(form,$event)" class='registerForm'>
+    <md-card>
+        <md-tab-group>
+            <md-tab label="账号信息">
+                <md-card-header class='register_Title'>
+                    <md-card-title>注册:</md-card-title>
+                </md-card-header>
+                <md-card-content>
+                    <md-input-container class='full-width'>
+                        <input mdInput type="text" placeholder="您的QQ号" formControlName='email'>
+                        <!-- <span mdSuffix>@qq.com</span> -->
+                    </md-input-container>
+
+                    <md-input-container class='full-width'>
+                        <input mdInput type="text" placeholder="群名" formControlName='name'>
+                    </md-input-container>
+
+                    <md-input-container class='full-width'>
+                        <input mdInput type="password" placeholder="您的密码" formControlName='password'>
+                    </md-input-container>
+
+
+                    <md-input-container class='full-width'>
+                        <input mdInput type="password" placeholder="重复输入您的密码" formControlName='repeat'>
+                    </md-input-container>
+
+                    <!--  cols="8" rowHeight="1:1", cols分格， colspan=2意思是占2格. rowspan纵占2格 
+                            <md-grid-tile colspan='2'>1</md-grid-tile>
+                            <md-grid-tile rowspan='2'>1</md-grid-tile> -->
+                    <!-- <md-grid-list cols="6">
+                            <md-grid-tile *ngFor="let item of items">
+                                <md-icon class='avatar' [svgIcon]='item'></md-icon>
+                            </md-grid-tile>
+                        </md-grid-list> -->
+
+                    <app-image-list-select [useSvgIcon]='true' [cols]='6' [title]="'选择头像:'" [items]='items' formControlName="avatar">
+
+                    </app-image-list-select>
+
+                    <button md-raised-button type="submit" color="primary">注册</button>
+                </md-card-content>
+
+                <md-card-actions class='text-right'>
+                    <p>还没有账户?
+                        <a href="">
+                            <button md-icon-button type="button" color="primary">登录</button></a>
+                    </p>
+                    <p>忘记密码?
+                        <a href="">
+                            <button md-icon-button type="button" color="primary">找回</button></a>
+                    </p>
+                </md-card-actions>
+            </md-tab>
+            <md-tab label="个人信息">
+                <div class="full-width">
+                    <app-identity-input formControlName="identity"></app-identity-input>
+                </div>
+                <div class="full-width">
+                    <app-age-input formControlName="dateOfBirth"></app-age-input>
+                </div>
+                <div class="full-width">
+                    <app-area-list formControlName="address"></app-area-list>
+                </div>
+            </md-tab>
+        </md-tab-group>
+    </md-card>
+
+
+</form>

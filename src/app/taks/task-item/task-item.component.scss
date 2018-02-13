@@ -1,0 +1,73 @@
+.due-date {
+    background: #FF4F3E;
+    color: #fff;
+}
+
+//icon大小，位置
+md-icon.avatar {
+    overflow: hidden;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 12px;
+    order: 3;
+}
+
+.completed {
+    opacity: 0.64;
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+
+.alarm {
+    font-size: 18px;
+}
+
+// 因为是flex容器、-1就是最前面
+.completion-status {
+    order: -1;
+}
+
+.bottom-bar {
+    margin-top: 3px;
+    margin-bottom: 2px;
+    font-size: 10px;
+    width: 100%;
+    order: 1;
+}
+
+.content {
+    order: 1;
+    width: 100%;
+    padding: 5px;
+}
+
+// box-shadow阴影
+.container {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.drag-start {
+    // opacity: 0.1;
+    border: #ff525b dashed 2px;
+}
+
+:host {
+    width: 100%;
+}
+
+// 优先级
+.priority-normal {
+    border-left: 3px solid #A6A6A6;
+}
+
+.priority-important {
+    border-left: 3px solid #FFAF38;
+}
+
+.priority-emergency {
+    border-left: 3px solid red;
+}
