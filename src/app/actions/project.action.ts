@@ -7,6 +7,7 @@ import { Project } from '../domain';
 
 export const ActionTypes = {
     // 前面中括号表示哪个reduser    load是action信息。  作为Key
+    // 有分为默认，成功， 失败
     ADD: type('[Project] Add'),
     ADD_SUCCESS: type('[Project] Add Success'),
     ADD_FAIL: type('[Project] Add Fail'),
@@ -31,10 +32,9 @@ export const ActionTypes = {
 
 };
 
-// 增加
 export class AddAction implements Action {
     readonly type = ActionTypes.ADD;
-    // 携带的参数
+// 携带的参数【定义类型】
     constructor(public payload: Project) { }
 }
 

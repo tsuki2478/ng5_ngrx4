@@ -1,4 +1,3 @@
-import { InviteAction } from './../actions/project.action';
 // ng-service
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
@@ -12,6 +11,8 @@ import * as actions from '../actions/project.action';
 import * as fromRoot from '../reducers';
 import * as routerActions from '../actions/router.action';
 import * as listActions from '../actions/task-list.action';
+import { InviteAction } from './../actions/project.action';
+
 @Injectable()
 export class ProjectEffects {
 

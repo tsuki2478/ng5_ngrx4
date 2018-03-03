@@ -82,6 +82,4 @@ export class TaskService {
       .patch(uri, JSON.stringify({completed: !task.completed}), {headers: this.headers})
       .map(res => res.json());
   }
-
-  
 }

@@ -119,11 +119,9 @@ export const getEntities = (state: State) => state.entities;
 export const getSelectedId = (state: State) => state.selectedId;
 
 export const getAll = createSelector(getIds, getEntities, (ids, entities) => {
-
     // console.log(ids);
     // console.log(entities);
     // const aa = ids.map(id => entities[id])
         // .filter(o => o.id === o.id);
     return ids.map(id => entities[id]);
-
 })

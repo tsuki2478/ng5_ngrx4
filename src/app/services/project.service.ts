@@ -3,8 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
 import * as _ from 'lodash';
 import { Project, User } from '../domain';
-
-
+ 
 @Injectable()
 export class ProjectService {
     private readonly domain = 'projects';
