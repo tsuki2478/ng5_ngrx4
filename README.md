@@ -23,3 +23,6 @@ cnpm i  --save reselect   记忆
 Vs  下载 redux Devtools
 google插件： redux Devtools
 注意： ngrx版本不一样。写法不一样。。。
+
+账号默认了.
+密码： aa123456
