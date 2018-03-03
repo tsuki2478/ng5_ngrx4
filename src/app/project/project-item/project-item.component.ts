@@ -1,11 +1,21 @@
 import { cardAnim } from './../../animates/card.anim';
-import { Component, OnInit,   Input, Output, EventEmitter, HostBinding, HostListener, ChangeDetectionStrategy } from '@angular/core';
- 
- @Component({
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  OnInit,
+  Output
+  } from '@angular/core';
+import { Project } from '../../domain';
+
+@Component({
   selector: 'app-project-item',
   templateUrl: './project-item.component.html',
   styleUrls: ['./project-item.component.scss'],
-  animations  : [
+  animations: [
     cardAnim
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -14,18 +24,20 @@ import { Component, OnInit,   Input, Output, EventEmitter, HostBinding, HostList
 export class ProjectItemComponent implements OnInit {
 
   // 笨组件，只有输入值变了才会发生变化
-  @Input() item;
+  @Input() item: Project;
   @Output() Invite = new EventEmitter<void>();
 
   @Output() Edit = new EventEmitter<void>();
 
   @Output() Delete = new EventEmitter<void>();
 
+  @Output() Selected = new EventEmitter<void>();
+
   @HostBinding('@card') cardState = 'out';
   // 相当于在html 写上  [@card]='cardState'
 
   constructor(
-   ) { }
+  ) { }
 
   ngOnInit() {
   }
@@ -44,17 +56,24 @@ export class ProjectItemComponent implements OnInit {
   }
 
   // 邀请
-  onInviteClick() {
+  onInviteClick(ev: Event) {
+    ev.stopPropagation();
     this.Invite.emit();
   }
 
   // 编辑
-  onEditClick() {
+  onEditClick(ev: Event) {
+    ev.stopPropagation();
     this.Edit.emit();
   }
 
   // 删除
-  ondeleteClick() {
+  ondeleteClick(ev: Event) {
+    ev.stopPropagation();
     this.Delete.emit();
-   }
+  }
+
+  onClick() {
+    this.Selected.emit();
+  }
 }

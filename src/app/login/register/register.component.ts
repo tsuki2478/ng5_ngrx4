@@ -1,9 +1,13 @@
-import { isValidDate  } from './../../utils/date.util';
+import { isValidDate } from './../../utils/date.util';
 import { Subscription } from 'rxjs/Subscription';
 import { getAddrByCode, isValidAddr, extractInfo } from './../../utils/identity.util';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../reducers';
+import * as authActions from '../../actions/auth.action';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +20,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   items: string[];
   sub: Subscription;
   private readonly avatarName = 'avatars';
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private store$: Store<fromRoot.State>
+  ) { }
 
   ngOnInit() {
     const img = `${this.avatarName}:svg-${Math.floor(Math.random() * 16).toFixed(0)}`;
@@ -60,5 +67,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       return;
     }
     console.log(value);
+    // value就是符合user结构的对象
+    this.store$.dispatch(new authActions.RegisterAction(value));
   }
 }

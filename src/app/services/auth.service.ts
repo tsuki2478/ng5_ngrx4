@@ -33,7 +33,8 @@ export class AuthService {
      * @param user 用户信息，id 属性会被忽略，因为服务器端会创建新的 id
      */
     register(user: User): Observable<Auth> {
-        user.id = null;
+        // 对象不可扩展
+        // user.id = null;
         const uri = `${this.config.url}/${this.domain}`;
         return this.http
             .get(uri, { params: { 'email': user.email } })

@@ -37,15 +37,17 @@
             </md-card-title>
             <md-card-subtitle>
                 <!-- 来自二次元的乙女... -->
-                {{quote.cn}}
+                <!-- {{quote.cn}} -->
+                {{(quote$ | async).cn}}
             </md-card-subtitle>
         </md-card-header>
         <!-- <img md-card-image src="../../../assets/1.png" alt="" class='AA'> -->
-        <img md-card-image [src]="quote.pic" alt="quote image" class='AA'>
+        <img md-card-image [src]="(quote$ | async).pic" alt="quote image" class='AA'>
 
         <md-card-content>
             <!-- 呐! <br> 我到底要用怎么样的速度生活才能与你再次相遇... -->
-            {{quote.en}}
+            <!-- {{quote.en}} -->
+            {{(quote$ | async).en}}
         </md-card-content>
     </md-card>
 

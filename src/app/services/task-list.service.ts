@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
 @Injectable()
 export class TaskListService {
-    private readonly domain = 'taskList';
+    private readonly domain = 'taskLists';
     private headers = new Headers({
         'Content-Type': 'application/json'
     });
@@ -12,11 +12,11 @@ export class TaskListService {
     constructor(private http: Http, @Inject('BASE_CONFIG') private config, ) { }
 
     // POST   Observable<TaskList> 是返回类型
-    add(taskList: TaskList): Observable<TaskList> {
-        taskList.id = null;
+    add(taskLists: TaskList): Observable<TaskList> {
+        // taskList.id = null;
         const uri = `${this.config.url}/${this.domain}`;
         return this.http
-            .post(uri, JSON.stringify(taskList), { headers: this.headers })
+            .post(uri, JSON.stringify(taskLists), { headers: this.headers })
             .map(res => res.json());
     }
 
@@ -60,6 +60,6 @@ export class TaskListService {
             .map(res => res.json());
         return Observable
             .concat(drag$, drop$)
-            .reduce((arrs, list) => [...arrs, list], [])
+            .reduce((arrs, list) => [...arrs, list], []);
     }
 }

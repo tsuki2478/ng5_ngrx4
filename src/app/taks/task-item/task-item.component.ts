@@ -17,10 +17,13 @@ export class TaskItemComponent implements OnInit {
   @Input() avatar;
   @Output() taskClick = new EventEmitter<void>();
   widerPriority = 'in';
-  constructor() { }
+  constructor() {
+ 
+    // this.avatar = this.item.owner ? this.item.owner.avatar : 'unassigned';
+  }
 
   ngOnInit() {
-    this.avatar = this.item.owner ? this.item.owner.avatar : 'unassigned';
+
   }
   onItemClick() {
     this.taskClick.emit();

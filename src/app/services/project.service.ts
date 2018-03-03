@@ -1,7 +1,10 @@
 import { Observable } from 'rxjs/Observable';
-import { Project } from '../domain';
 import { Http, Headers } from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
+import * as _ from 'lodash';
+import { Project, User } from '../domain';
+
+
 @Injectable()
 export class ProjectService {
     private readonly domain = 'projects';
@@ -40,7 +43,7 @@ export class ProjectService {
             .mergeMap(listId => this.http.delete(`${this.config.url}/taskLists/${listId}`))
             .count();
         return delTasks$
-            .switchMap(_ => this.http.delete(`${this.config.url}/${this.domain}/${project.id}`))
+            .switchMap(() => this.http.delete(`${this.config.url}/${this.domain}/${project.id}`))
             .mapTo(project);
     }
 
@@ -49,7 +52,22 @@ export class ProjectService {
     get(userId: string): Observable<Project[]> {
         const uri = `${this.config.url}/${this.domain}`;
         return this.http
-            .get(uri, { params: { 'members_like': userId } })
-            .map(res => res.json() as Project[]);
+            .get(uri, { params: { 'members_like': userId },  headers: this.headers})
+            .map(res => res.json()  );
+    }
+
+    Invite(projectId: string, users: User[]): Observable<Project> {
+        const uri = `${this.config.uri}/${this.domain}/${projectId}`;
+        return this.http
+            .get(uri)
+            .map(res => res.json())
+            .switchMap((project: Project) => {
+                const existingMemberIds = project.members;
+                const invitedIds = users.map(user => user.id);
+                const newIds = _.union(existingMemberIds, invitedIds);
+                return this.http
+                    .patch(uri, JSON.stringify({ members: newIds }), { headers: this.headers })
+                    .map(res => res.json());
+            });
     }
 }

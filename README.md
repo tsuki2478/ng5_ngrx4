@@ -1,27 +1,25 @@
-# Taskmg
+ node：8.9.3
+ npm：5.5.1
+ angular5
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
 
-## Development server
+ 建议开vpn
+ 安装： npm install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+cnpm i --save @angular/material@2.0.0-beta.7
 
-## Code scaffolding
+cnpm install -g concurrently
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+如果是ng5的话。所使用的应该是ngrx最新
+  npm i --save @ngrx/cor @ngrx/store @ngrx/router-stor @ngrx/effects @ngrx/store-devtools
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+cnpm install --save ngrx-store-freeze 开发状态的检测
 
-## Running unit tests
+cnpm i  --save reselect   记忆
+运行: npm start
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Vs  下载 redux Devtools
+google插件： redux Devtools
+注意： ngrx版本不一样。写法不一样。。。

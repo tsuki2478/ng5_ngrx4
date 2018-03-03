@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 import { AppRoutingModule } from '../app-routing.module';
 import '../utils/debug.util';
+import { AppEffectsModule } from '../effects';
+import {AppStoreModule} from '../reducers';
 
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/from';
@@ -27,6 +29,7 @@ import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/defaultIfEmpty';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/distinct';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
@@ -38,6 +41,7 @@ import 'rxjs/add/operator/bufferTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/count';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/withLatestFrom';
 
 
 @NgModule({
@@ -46,6 +50,8 @@ import 'rxjs/add/operator/do';
     BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
+    AppStoreModule,
+    AppEffectsModule,
     ServicesModule.forRoot(),
   ],
   declarations: [

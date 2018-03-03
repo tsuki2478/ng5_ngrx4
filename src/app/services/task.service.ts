@@ -14,23 +14,11 @@ export class TaskService {
               private http: Http) {
   }
 
-  add(task: Task): Observable<Task> {
+  add(taskList: TaskList): Observable<TaskList> {
     const uri = `${this.config.url}/${this.domain}`;
-    const toAdd = {
-      taskListId: task.taskListId,
-      desc: task.desc,
-      completed: task.completed,
-      ownerId: task.ownerId,
-      participantIds: task.participantIds,
-      dueDate: task.dueDate,
-      priority: task.priority,
-      remark: task.remark,
-      reminder: task.reminder,
-      createDate: task.createDate
-    };
     // const addTaskRef$ = this.addTaskRef()
     return this.http
-      .post(uri, JSON.stringify(toAdd), {headers: this.headers})
+      .post(uri, JSON.stringify(taskList), {headers: this.headers})
       .map(res => res.json());
 
   }

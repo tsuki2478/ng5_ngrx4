@@ -8,9 +8,9 @@ import { RegisterComponent } from './login/register/register.component';
 const routes: Routes = [
      { path: '', redirectTo: '/login', pathMatch: 'full' },
     // { path: 'login', component: LoginComponent },
-    { path: '', redirectTo: '/project', pathMatch: 'full' },
+    // { path: '', redirectTo: '/project', pathMatch: 'full' },
     // { path: 'project', component: ProjectListComponent },
-    { path: '', redirectTo: '/tasklists', pathMatch: 'full' },
+    // { path: '', redirectTo: 'tasklists', pathMatch: 'full' },
 
 ];
 

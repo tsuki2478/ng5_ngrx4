@@ -6,7 +6,7 @@ export const slideToRight = trigger('routeAnim', [
     // height：100%，会沾满。 fixed是布局问题。
     // 'void => *' 改成'：enter ' 进
     // group 是执行多个过渡效果。 opacity是淡入淡出
-    transition(':enter', [
+    transition('void => *', [
         style({ transform: 'translateX(-100%)', opacity: 0 }),
         group([
             animate('.5s ease-in-out', style({ transform: 'translateX(0)' })),
@@ -14,7 +14,7 @@ export const slideToRight = trigger('routeAnim', [
         ])
     ]),
 //   * => void改成 ：leave    也行。
-    transition(':leave', [
+    transition('* => void', [
         style({ transform: 'translateX(0)', opacity: 1 }),
         group([
             animate('.5s ease-in-out', style({ transform: 'translateX(100%)' })),

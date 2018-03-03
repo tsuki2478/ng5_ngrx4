@@ -12,7 +12,7 @@ Content-Type:  application/json
 {
     "name":"lists1",
     "order":"1",
-    "projectId":"1",
+    "projectIds":"1",
 }
 
 
@@ -23,7 +23,7 @@ Content-Type:  application/jso
 {
     "name":"lists2",
     "order":"2",
-    "projectId":"1",
+    "projectIds":"1",
 }
 
 

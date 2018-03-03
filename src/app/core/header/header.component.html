@@ -1,8 +1,9 @@
 <md-toolbar color="primary">
-    <button md-icon-button (click)='openSidebar()'> 
+    <button md-icon-button (click)='openSidebar()' *ngIf="(auth$ | async)?.token"> 
        <md-icon>menu</md-icon> 
     </button>
     <span>银发之境主</span>
     <span class='fill-remaining-space'></span>
     <md-slide-toggle (change)="onchange($event.checked)">黑夜模式</md-slide-toggle>
+    <span><a  md-button *ngIf="(auth$ | async)?.token" (click)='logout()' >退出</a></span>
 </md-toolbar>

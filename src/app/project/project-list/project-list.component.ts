@@ -1,3 +1,5 @@
+import { DeleteAction } from './../../actions/project.action';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import * as _ from 'lodash';
 import {
@@ -17,6 +19,9 @@ import { Project } from '../../domain/index';
 import { ProjectService } from '../../services/project.service';
 import { slideToRight } from '../../animates/router.anim';
 
+import { Action, Store } from '@ngrx/store';
+import * as fromRoot from '../../reducers';
+import * as  actions from '../../actions/project.action';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -29,40 +34,34 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   @HostBinding('@routeAnim') state;
 
-  projects;
-  sub: Subscription;
-  // projects = [
-  //   {
-  //     'id': 1,
-  //     'name': '学姐',
-  //     'desc': '骑士少女',
-  //     'coverImg': '/assets/covers/cover (1).jpg'
-  //   },
-
-  //   {
-  //     'id': 2,
-  //     'name': '学姐',
-  //     'desc': '不明',
-  //     'coverImg': '/assets/covers/cover (2).jpg'
-  //   }
-  // ];
+  projects$: Observable<Project[]>;
+  listAnim$: Observable<number>;
+  // sub: Subscription;
   constructor(
     public dialog: MdDialog,
-    private cd: ChangeDetectorRef,
-    private service$: ProjectService,
-  ) { }
+    // private cd: ChangeDetectorRef,
+    private store$: Store<fromRoot.State>
+  ) {
+    // ngrx模块
+    this.store$.dispatch(new actions.LoadAction(null));
+    this.projects$ = this.store$.select(fromRoot.getProjects);
+    this.listAnim$ = this.projects$.map(p => p.length);
+    // console.log(this.listAnim$);
+  }
 
   ngOnInit() {
-    this.sub = this.service$.get('1').subscribe(project => {
-      this.projects = project;
-      this.cd.markForCheck();
-      console.log(project);
-    });
+    // this.sub = this.service$.get('1').subscribe(project => {
+    //   this.projects = project;
+    //   this.cd.markForCheck();
+    //   console.log(project);
+    // });
   }
   ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
+    // if (this.sub) {
+    //   this.sub.unsubscribe();
+    // }
+    this.projects$ = null;
+    this.listAnim$ = null;
   }
   // 添加新项目。对话框
   openNewProjectDialog() {
@@ -75,10 +74,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       .take(1)
       .filter(n => n) // 保证有数
       .map(val => ({ ...val, coverImg: this.buildImgSrc(val.coverImg) }))
-      .switchMap(v => this.service$.add(v))
       .subscribe(project => {
-        this.projects = [...this.projects, project];
-        this.cd.markForCheck();
+        this.store$.dispatch(new actions.AddAction(project));
       });
     //    result => {
     //   console.log(result);
@@ -97,39 +94,54 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   //  自动完成
   launchInviteDialog() {
     const dialogRef = this.dialog.open(InviteComponent, { data: { members: [] } });
+    // this.store$.select(fromRoot.getProjects(project.id))
+    // .take(1)
+    // .map(members => this.dialog.open(InviteComponent, {data: { members: members}}))
+    // .switchMap(dialogRef => dialogRef.afterClosed().take(1).filter(n => n))
+    // .subscribe(val => {
+    //   this.store$.dispatch(new actions.InviteAction({projectId: <string>project.id, members: <User[]>val}));
+    // });
   }
 
   //  编辑
   launchUpdateDialog(project: Project) {
-    const dialogRef = this.dialog.open(
-      NewProjectComponent, { data: { thumbnails: this.getThumbnails(), project: project } });
-    dialogRef.afterClosed()
-      // 只取一次 .. 可以当做取消订阅
-      .take(1)
-      .filter(n => n) // 保证有数
-      .map(val => ({ ...val, id: project.id, coverImg: this.buildImgSrc(val.coverImg) }))
-      .switchMap(v => this.service$.update(v))
-      .subscribe(project => {
-        const index = this.projects.map(p => p.id).indexOf(project.id);
-        this.projects = [...this.projects.slice(0, index), project, ...this.projects.slice(index, +1)];
-        this.cd.markForCheck();
+    const thumbnails$ = this.getThumbnails();
+    const dialogRef = this.dialog.open(NewProjectComponent, { data: { project: project, thumbnails: thumbnails$ } });
+    dialogRef.afterClosed().
+      take(1)
+      .subscribe(val => {
+        if (val) {
+          const converImg = this.buildImgSrc(val.coverImg);
+          this.store$.dispatch(new actions.UpdateAction({ ...val, id: project.id, coverImg: converImg }));
+        }
       });
-    // const dialogRef = this.dialog.open(NewProjectComponent, { data: { title: '编辑:' } });
+
+    // const dialogRef = this.dialog.open( NewProjectComponent, { data: { thumbnails: this.getThumbnails(), project: project } });
+    // dialogRef.afterClosed()
+    //   // 只取一次 .. 可以当做取消订阅
+    //   .take(1)
+    //   .filter(n => n) // 保证有数
+    //   .map(val => ({ ...val, id: project.id, coverImg: this.buildImgSrc(val.coverImg) }))
+    //   .subscribe( project => {
+    //     this.store$.dispatch(new actions.UpdateAction(project));
+    //   });
   }
 
   // 删除
   launchConfirmDialog(project) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, { data: { title: '删除', content: '您确认删除?' } });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
+      { data: { title: '删除', content: '您确认删除?' } });
     dialogRef.afterClosed()
       .take(1)
       .filter(n => n)
-      .switchMap(_ => this.service$.del(project))
-      .subscribe(result => {
-        console.log(result);
-        this.projects = this.projects.filter(p => p.id !== result.id);
-        //  filter是数组的方法， 返回新的数组
-        this.cd.markForCheck();
+      .subscribe(val => {
+        this.store$.dispatch(new actions.DeleteAction(project));
       });
+  }
+
+  selectProject(project: Project) {
+    console.log(project);
+    this.store$.dispatch(new actions.SelectAction(project));
   }
 
   private getThumbnails() {
@@ -139,5 +151,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   private buildImgSrc(img: string): string {
     return img.indexOf('_') > -1 ? img.split('_')[0] + '.jpg' : img;
+  }
+
+  getOutID(i){
+    console.log('1111111111111')
+    console.log(i);
   }
 }
